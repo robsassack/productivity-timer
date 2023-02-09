@@ -1,4 +1,6 @@
+<p>{{interval[currentInterval%8].name}} - #{{intervalFormat(currentInterval)}}</p>
 <p>{{timeFormat(time)}}</p>
 <button *ngIf="!state" (click)="start()">Start</button>
-<button *ngIf="state" (click)="pause()">Stop</button>
+<button *ngIf="state" (click)="pause()">Pause</button>
 <button (click)="reset()">Reset</button>
+<button (click)="next()">Skip</button>

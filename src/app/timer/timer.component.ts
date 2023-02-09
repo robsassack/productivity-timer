@@ -6,21 +6,32 @@ import { Component } from '@angular/core';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent {
-  time = 300;
+  time = 15000;
   timer: any;
   state: boolean = false;
+  interval = [
+    { name: 'Work', time: 15000 },
+    { name: 'Break', time: 3000 },
+    { name: 'Work', time: 15000 },
+    { name: 'Break', time: 3000 },
+    { name: 'Work', time: 15000 },
+    { name: 'Break', time: 3000 },
+    { name: 'Work', time: 15000 },
+    { name: 'Long Break', time: 9000 },
+  ]
+  currentInterval = 0;
 
   start() {
     // start timer
     if (!this.state) {
-      console.log('go');
+      console.log('timer started');
       this.timer = setInterval(() => {
-        console.log(this.time);
+        // console.log(this.time);
         if (this.time > 0) {
           this.time--;
         } else {
           alert("Time's up!");
-          clearInterval(this.timer);
+          this.next();
         }
       }, 100);
       this.state = true;
@@ -39,7 +50,16 @@ export class TimerComponent {
   reset() {
     // reset timer
     console.log('reset timer');
-    this.time = 300;
+    this.time = this.interval[this.currentInterval%8].time;
+    clearInterval(this.timer);
+    this.state = false;
+  }
+
+  next() {
+    // next interval
+    console.log('next interval');
+    this.currentInterval++;
+    this.time = this.interval[this.currentInterval%8].time;
     clearInterval(this.timer);
     this.state = false;
   }
@@ -52,5 +72,13 @@ export class TimerComponent {
       return minutes + ':0' + seconds;
     }
     return minutes + ':' + seconds;
+  }
+
+  intervalFormat(interval: number) {
+    // format interval number based on work and breaks
+    if (interval % 2 == 0) {
+      return interval / 2;
+    }
+    return (interval + 1) / 2;
   }
 }
