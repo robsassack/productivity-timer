@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-timer',
@@ -6,20 +7,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent {
-  time = 15000;
+  workTime = 15000;
+  breakTime = 3000;
+  longBreakTime = 9000;
+
+  time = this.workTime;
   timer: any;
   state: boolean = false;
   interval = [
-    { name: 'Work', time: 15000 },
-    { name: 'Break', time: 3000 },
-    { name: 'Work', time: 15000 },
-    { name: 'Break', time: 3000 },
-    { name: 'Work', time: 15000 },
-    { name: 'Break', time: 3000 },
-    { name: 'Work', time: 15000 },
-    { name: 'Long Break', time: 9000 },
+    { name: 'Work', time: this.workTime },
+    { name: 'Break', time: this.breakTime },
+    { name: 'Work', time: this.workTime },
+    { name: 'Break', time: this.breakTime },
+    { name: 'Work', time: this.workTime },
+    { name: 'Break', time: this.breakTime },
+    { name: 'Work', time: this.workTime },
+    { name: 'Long Break', time: this.longBreakTime },
   ]
   currentInterval = 0;
+
+  constructor(private titleService: Title) {}
 
   start() {
     // start timer
@@ -27,10 +34,15 @@ export class TimerComponent {
       console.log('timer started');
       this.timer = setInterval(() => {
         // console.log(this.time);
+        this.updateTitle();
         if (this.time > 0) {
           this.time--;
         } else {
-          alert("Time's up!");
+          // play sound
+          let alertSound = new Audio();
+          alertSound.src = 'assets/alert.wav';
+          alertSound.load();
+          alertSound.play();
           this.next();
         }
       }, 100);
@@ -53,6 +65,7 @@ export class TimerComponent {
     this.time = this.interval[this.currentInterval%8].time;
     clearInterval(this.timer);
     this.state = false;
+    this.updateTitle();
   }
 
   next() {
@@ -74,6 +87,13 @@ export class TimerComponent {
         document.body.style.backgroundColor = '#047857';
         break;
     }
+    this.updateTitle();
+  }
+
+  updateTitle() {
+    // update title
+    let title = `[${this.timeFormat(this.time)}] - ${this.interval[this.currentInterval%8].name}`;
+    this.titleService.setTitle(title);
   }
 
   timeFormat(time: number) {

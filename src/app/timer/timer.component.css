@@ -13,3 +13,8 @@
 button {
   padding: 0.5rem 1rem;
 }
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
