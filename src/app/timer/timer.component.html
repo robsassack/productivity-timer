@@ -1,0 +1,4 @@
+<p>{{timeFormat(time)}}</p>
+<button *ngIf="!state" (click)="start()">Start</button>
+<button *ngIf="state" (click)="pause()">Stop</button>
+<button (click)="reset()">Reset</button>
