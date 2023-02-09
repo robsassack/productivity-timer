@@ -2,9 +2,9 @@
   <p class="interval">{{interval[currentInterval%8].name}} - #{{intervalFormat(currentInterval)}}</p>
   <p class="time">{{timeFormat(time)}}</p>
   <div class="buttons">
-    <button (click)="reset()"><i class="fa-solid fa-rotate-right"></i></button>
+    <button (click)="reset()" aria-label="reset"><i class="fa-solid fa-rotate-right"></i></button>
     <button *ngIf="!state" (click)="start()" class="timer-button">Start</button>
     <button *ngIf="state" (click)="pause()" class="timer-button">Pause</button>
-    <button (click)="next()"><i class="fa-solid fa-forward-step"></i></button>
+    <button (click)="next()" aria-label="skip"><i class="fa-solid fa-forward-step"></i></button>
   </div>
 </div>
