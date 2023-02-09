@@ -15,14 +15,14 @@ export class TimerComponent {
   timer: any;
   state: boolean = false;
   interval = [
-    { name: 'Work', time: this.workTime },
-    { name: 'Break', time: this.breakTime },
-    { name: 'Work', time: this.workTime },
-    { name: 'Break', time: this.breakTime },
-    { name: 'Work', time: this.workTime },
-    { name: 'Break', time: this.breakTime },
-    { name: 'Work', time: this.workTime },
-    { name: 'Long Break', time: this.longBreakTime },
+    { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
+    { name: 'Break', time: this.breakTime, bgColor: "#075985" },
+    { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
+    { name: 'Break', time: this.breakTime, bgColor: "#075985" },
+    { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
+    { name: 'Break', time: this.breakTime, bgColor: "#075985" },
+    { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
+    { name: 'Long Break', time: this.longBreakTime, bgColor: "#065f46" },
   ]
   currentInterval = 0;
 
