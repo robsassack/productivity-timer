@@ -62,6 +62,18 @@ export class TimerComponent {
     this.time = this.interval[this.currentInterval%8].time;
     clearInterval(this.timer);
     this.state = false;
+    // set background color based on interval
+    switch (this.interval[this.currentInterval%8].name) {
+      case 'Work':
+        document.body.style.backgroundColor = '#be123c';
+        break;
+      case 'Break':
+        document.body.style.backgroundColor = '#0369a1';
+        break;
+      case 'Long Break':
+        document.body.style.backgroundColor = '#047857';
+        break;
+    }
   }
 
   timeFormat(time: number) {
