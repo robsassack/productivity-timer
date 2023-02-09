@@ -9,6 +9,10 @@
   border-radius: 10px;
 }
 
+.interval {
+  font-size: 1.2em;
+}
+
 .time {
   font-size: 5em;
   font-weight: bold;
@@ -24,6 +28,16 @@ button {
   cursor: pointer;
   user-select: none;
   width: 50px;
+  box-shadow: 0 4px 0 #838383;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+button:active {
+  background-color: #c8c8c8;
+  transform: translateY(2px);
 }
 
 .buttons {

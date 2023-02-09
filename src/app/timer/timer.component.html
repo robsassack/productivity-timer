@@ -1,5 +1,5 @@
 <div class="timer" [ngStyle]="{'background-color': interval[currentInterval%8].bgColor}">
-  <p>{{interval[currentInterval%8].name}} - #{{intervalFormat(currentInterval)}}</p>
+  <p class="interval">{{interval[currentInterval%8].name}} - #{{intervalFormat(currentInterval)}}</p>
   <p class="time">{{timeFormat(time)}}</p>
   <div class="buttons">
     <button (click)="reset()"><i class="fa-solid fa-rotate-right"></i></button>
