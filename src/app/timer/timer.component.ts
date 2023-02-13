@@ -54,6 +54,7 @@ export class TimerComponent {
     // pause timer
     console.log('timer paused');
     this.pauseTimer = true;
+    this.updateTitle();
   }
 
   resume() {
@@ -99,7 +100,13 @@ export class TimerComponent {
 
   updateTitle() {
     // update title
-    let title = `[${this.timeFormat(this.time)}] - ${this.interval[this.currentInterval%8].name}`;
+    let symbol = '';
+    if (this.pauseTimer) {
+      symbol = '⏸';
+    } else {
+      symbol = '▶️';
+    }
+    let title = `${symbol} [${this.timeFormat(this.time)}] - ${this.interval[this.currentInterval%8].name}`;
     this.titleService.setTitle(title);
   }
 
