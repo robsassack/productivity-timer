@@ -35,9 +35,9 @@ export class TimerComponent {
     if (!this.timer) {
       this.timer = interval(1000).subscribe(val => {
         if (!this.pauseTimer) {
-          this.updateTitle();
           if (this.time > 0) {
             this.time--;
+            this.updateTitle();
           } else {
             // play sound
             this.alertSound.src = 'assets/alert.wav';
