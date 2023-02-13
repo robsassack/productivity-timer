@@ -3,8 +3,9 @@
   <p class="time">{{timeFormat(time)}}</p>
   <div class="buttons">
     <button (click)="reset()" aria-label="reset"><i class="fa-solid fa-rotate-right"></i></button>
-    <button *ngIf="!state" (click)="start()" class="timer-button">Start</button>
-    <button *ngIf="state" (click)="pause()" class="timer-button">Pause</button>
+    <button *ngIf="timer === null" (click)="start()" class="timer-button">Start</button>
+    <button *ngIf="!pauseTimer && timer !== null" (click)="pause()" class="timer-button">Pause</button>
+    <button *ngIf="pauseTimer && timer !== null" (click)="resume()" class="timer-button">Resume</button>
     <button (click)="next()" aria-label="skip"><i class="fa-solid fa-forward-step"></i></button>
   </div>
 </div>

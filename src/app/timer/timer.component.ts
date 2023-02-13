@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-timer',
@@ -7,13 +8,15 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent {
-  workTime = 15000;
-  breakTime = 3000;
-  longBreakTime = 9000;
+  alertSound = new Audio();
+
+  workTime = 1500;
+  breakTime = 300;
+  longBreakTime = 900;
 
   time = this.workTime;
-  timer: any;
-  state: boolean = false;
+  timer: any = null;
+  pauseTimer: boolean = false;
   interval = [
     { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
     { name: 'Break', time: this.breakTime, bgColor: "#075985" },
@@ -29,42 +32,43 @@ export class TimerComponent {
   constructor(private titleService: Title) {}
 
   start() {
-    // start timer
-    if (!this.state) {
-      console.log('timer started');
-      this.timer = setInterval(() => {
-        // console.log(this.time);
-        this.updateTitle();
-        if (this.time > 0) {
-          this.time--;
-        } else {
-          // play sound
-          let alertSound = new Audio();
-          alertSound.src = 'assets/alert.wav';
-          alertSound.load();
-          alertSound.play();
-          this.next();
+    if (!this.timer) {
+      this.timer = interval(1000).subscribe(val => {
+        if (!this.pauseTimer) {
+          this.updateTitle();
+          if (this.time > 0) {
+            this.time--;
+          } else {
+            // play sound
+            this.alertSound.src = 'assets/alert.wav';
+            this.alertSound.load();
+            this.alertSound.play();
+            this.next();
+          }
         }
-      }, 100);
-      this.state = true;
+      });
     }
   }
 
   pause() {
     // pause timer
-    if (this.state) {
-      console.log('pause timer');
-      clearInterval(this.timer);
-      this.state = false;
-    }
+    console.log('timer paused');
+    this.pauseTimer = true;
+  }
+
+  resume() {
+    // resume timer
+    console.log('timer resumed');
+    this.pauseTimer = false;
   }
 
   reset() {
     // reset timer
     console.log('reset timer');
     this.time = this.interval[this.currentInterval%8].time;
-    clearInterval(this.timer);
-    this.state = false;
+    this.timer.unsubscribe();
+    this.timer = null;
+    this.pauseTimer = false;
     this.updateTitle();
   }
 
@@ -73,8 +77,11 @@ export class TimerComponent {
     console.log('next interval');
     this.currentInterval++;
     this.time = this.interval[this.currentInterval%8].time;
-    clearInterval(this.timer);
-    this.state = false;
+    if (this.timer) {
+      this.timer.unsubscribe();
+    }
+    this.timer = null;
+    this.pauseTimer = false;
     // set background color based on interval
     switch (this.interval[this.currentInterval%8].name) {
       case 'Work':
@@ -98,8 +105,8 @@ export class TimerComponent {
 
   timeFormat(time: number) {
     // format to MM:SS
-    const minutes = Math.floor(time / 600);
-    const seconds = Math.floor((time % 600) / 10);
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor((time % 60));
     if (seconds < 10) {
       return minutes + ':0' + seconds;
     }
