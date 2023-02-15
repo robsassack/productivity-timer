@@ -103,7 +103,7 @@ export class TimerComponent {
     let symbol = '';
     if (this.pauseTimer) {
       symbol = '⏸';
-    } else {
+    } if (!this.pauseTimer && this.timer) {
       symbol = '▶️';
     }
     let title = `${symbol} [${this.timeFormat(this.time)}] - ${this.interval[this.currentInterval%8].name}`;
