@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { interval, Subscription } from 'rxjs';
 
@@ -30,6 +30,13 @@ export class TimerComponent {
   currentInterval = 0;
 
   constructor(private titleService: Title) {}
+
+  @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(event: any) {
+    // alert user if timer is running
+    if (this.timer && !this.pauseTimer) {
+      event.returnValue = true;
+    }
+  }
 
   start() {
     if (!this.timer) {
