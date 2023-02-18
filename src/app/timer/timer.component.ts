@@ -59,20 +59,20 @@ export class TimerComponent {
 
   pause() {
     // pause timer
-    console.log('timer paused');
+    // console.log('timer paused');
     this.pauseTimer = true;
     this.updateTitle();
   }
 
   resume() {
     // resume timer
-    console.log('timer resumed');
+    // console.log('timer resumed');
     this.pauseTimer = false;
   }
 
   reset() {
     // reset timer
-    console.log('reset timer');
+    // console.log('reset timer');
     this.time = this.interval[this.currentInterval%8].time;
     this.timer.unsubscribe();
     this.timer = null;
@@ -82,7 +82,7 @@ export class TimerComponent {
 
   next() {
     // next interval
-    console.log('next interval');
+    // console.log('next interval');
     this.currentInterval++;
     this.time = this.interval[this.currentInterval%8].time;
     if (this.timer) {
