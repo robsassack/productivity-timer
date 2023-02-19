@@ -16,7 +16,7 @@ body {
 header {
   padding: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 1.5em;
   font-weight: bold;
