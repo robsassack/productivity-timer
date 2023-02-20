@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { interval, Subscription } from 'rxjs';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-timer',
@@ -10,9 +11,30 @@ import { interval, Subscription } from 'rxjs';
 export class TimerComponent {
   alertSound = new Audio();
 
-  workTime = 1500;
-  breakTime = 300;
-  longBreakTime = 900;
+  workTime = this.settingsService.times.work;
+  breakTime = this.settingsService.times.break;
+  longBreakTime = this.settingsService.times.longBreak;
+
+  constructor(private titleService: Title, private settingsService: SettingsService) {}
+
+  ngOnInit() {
+    if (localStorage.getItem('times')) {
+      const times = JSON.parse(localStorage.getItem('times') || '{}');
+      this.workTime = times.work;
+      this.breakTime = times.break;
+      this.longBreakTime = times.longBreak;
+    } else {
+      this.workTime = this.settingsService.times.work;
+      this.breakTime = this.settingsService.times.break;
+      this.longBreakTime = this.settingsService.times.longBreak;
+
+      this.settingsService.settingsUpdated.subscribe((times: any) => {
+        this.workTime = times.work;
+        this.breakTime = times.break;
+        this.longBreakTime = times.longBreak;
+      });
+    }
+  }
 
   time = this.workTime;
   timer: any = null;
@@ -28,8 +50,6 @@ export class TimerComponent {
     { name: 'Long Break', time: this.longBreakTime, bgColor: "#065f46" },
   ]
   currentInterval = 0;
-
-  constructor(private titleService: Title) {}
 
   @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(event: any) {
     // alert user if timer is running
