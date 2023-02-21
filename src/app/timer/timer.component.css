@@ -37,6 +37,7 @@ button:hover {
 }
 
 button:active:enabled {
+  box-shadow: 0 2px 0 #838383;
   background-color: #c8c8c8;
   transform: translateY(2px);
 }
