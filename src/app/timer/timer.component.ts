@@ -110,8 +110,26 @@ export class TimerComponent {
     }
     this.timer = null;
     this.pauseTimer = false;
+    this.setBackgroundColor();
+    this.updateTitle();
+  }
+
+  prev() {
+    // previous interval
+    this.currentInterval--;
+    this.time = this.interval[this.currentInterval%8].time;
+    if (this.timer) {
+      this.timer.unsubscribe();
+    }
+    this.timer = null;
+    this.pauseTimer = false;
+    this.setBackgroundColor();
+    this.updateTitle();
+  }
+
+  private setBackgroundColor() {
     // set background color based on interval
-    switch (this.interval[this.currentInterval%8].name) {
+    switch (this.interval[this.currentInterval % 8].name) {
       case 'Work':
         document.body.style.backgroundColor = '#be123c';
         break;
@@ -122,7 +140,6 @@ export class TimerComponent {
         document.body.style.backgroundColor = '#047857';
         break;
     }
-    this.updateTitle();
   }
 
   updateTitle() {

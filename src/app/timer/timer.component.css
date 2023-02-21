@@ -36,9 +36,15 @@ button:hover {
   background-color: #e0e0e0;
 }
 
-button:active {
+button:active:enabled {
   background-color: #c8c8c8;
   transform: translateY(2px);
+}
+
+button:disabled {
+  background-color: #e0e0e0;
+  color: #838383;
+  cursor: not-allowed;
 }
 
 .buttons {
