@@ -127,6 +127,19 @@ export class TimerComponent {
     this.updateTitle();
   }
 
+  resetInterval() {
+    // reset interval
+    this.currentInterval = 0;
+    this.time = this.interval[this.currentInterval%8].time;
+    if (this.timer) {
+      this.timer.unsubscribe();
+    }
+    this.timer = null;
+    this.pauseTimer = false;
+    this.setBackgroundColor();
+    this.updateTitle();
+  }
+
   private setBackgroundColor() {
     // set background color based on interval
     switch (this.interval[this.currentInterval % 8].name) {
