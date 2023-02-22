@@ -13,5 +13,5 @@
     <button *ngIf="pauseTimer && timer !== null" (click)="resume()" class="timer-button">Resume</button>
     <button (click)="next()" aria-label="skip"><i class="fa-solid fa-forward-step"></i></button>
   </div>
-  <button *ngIf="currentInterval > 0" class="interval-reset" (click)="resetInterval()"><i class="fa-solid fa-backward-fast"></i></button>
+  <button *ngIf="currentInterval > 0" class="interval-reset" (click)="resetInterval()" aria-label="reset interval"><i class="fa-solid fa-backward-fast"></i></button>
 </div>
