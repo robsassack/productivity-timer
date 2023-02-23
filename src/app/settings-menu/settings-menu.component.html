@@ -1,6 +1,7 @@
 <div *ngIf="showSettingsMenu" class="settings-menu-container" (click)="toggleSettingsMenu()">
   <div class="settings-menu" (click)="$event.stopPropagation()">
     <h2 class="title">Settings</h2>
+    <div class="close" (click)="toggleSettingsMenu()"><i class="fa-solid fa-xmark"></i></div>
     <h4>Time (in minutes)</h4>
     <div class="time-settings">
       <div class="time-form">
