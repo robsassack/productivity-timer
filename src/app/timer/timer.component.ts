@@ -10,44 +10,36 @@ import { SettingsService } from '../settings.service';
 })
 export class TimerComponent {
   alertSound = new Audio();
-
-  workTime = this.settingsService.times.work;
-  breakTime = this.settingsService.times.break;
-  longBreakTime = this.settingsService.times.longBreak;
+  times = {
+    work: 1500,
+    break: 300,
+    longBreak: 900
+  };
 
   constructor(private titleService: Title, private settingsService: SettingsService) {}
 
   ngOnInit() {
-    if (localStorage.getItem('times')) {
-      const times = JSON.parse(localStorage.getItem('times') || '{}');
-      this.workTime = times.work;
-      this.breakTime = times.break;
-      this.longBreakTime = times.longBreak;
-    } else {
-      this.workTime = this.settingsService.times.work;
-      this.breakTime = this.settingsService.times.break;
-      this.longBreakTime = this.settingsService.times.longBreak;
-
-      this.settingsService.settingsUpdated.subscribe((times: any) => {
-        this.workTime = times.work;
-        this.breakTime = times.break;
-        this.longBreakTime = times.longBreak;
-      });
-    }
+    this.settingsService.times$.subscribe(times => {
+      this.times = times;
+    });
   }
 
-  time = this.workTime;
+  updateTime() {
+    this.settingsService.updateTime(this.times);
+  }
+
+  time = this.times.work;
   timer: any = null;
   pauseTimer: boolean = false;
   interval = [
-    { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
-    { name: 'Break', time: this.breakTime, bgColor: "#075985" },
-    { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
-    { name: 'Break', time: this.breakTime, bgColor: "#075985" },
-    { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
-    { name: 'Break', time: this.breakTime, bgColor: "#075985" },
-    { name: 'Work', time: this.workTime, bgColor: "#9f1239" },
-    { name: 'Long Break', time: this.longBreakTime, bgColor: "#065f46" },
+    { name: 'Work', time: this.times.work, bgColor: "#9f1239" },
+    { name: 'Break', time: this.times.break, bgColor: "#075985" },
+    { name: 'Work', time: this.times.work, bgColor: "#9f1239" },
+    { name: 'Break', time: this.times.break, bgColor: "#075985" },
+    { name: 'Work', time: this.times.work, bgColor: "#9f1239" },
+    { name: 'Break', time: this.times.break, bgColor: "#075985" },
+    { name: 'Work', time: this.times.work, bgColor: "#9f1239" },
+    { name: 'Long Break', time: this.times.longBreak, bgColor: "#065f46" },
   ]
   currentInterval = 0;
 

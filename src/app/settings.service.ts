@@ -1,36 +1,29 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
-  constructor() { }
-
-  times = {
+  private times = {
     work: 1500,
     break: 300,
     longBreak: 900
-  }
+  };
 
-  settingsUpdated = new EventEmitter();
+  private timesSubject = new BehaviorSubject(this.times);
+  times$ = this.timesSubject.asObservable();
 
-  updateTime(name: string, time: number) {
-    switch (name) {
-      case 'work':
-        this.times.work = time;
-        break;
-      case 'break':
-        this.times.break = time;
-        break;
-      case 'longBreak':
-        this.times.longBreak = time;
-        break;
+  constructor() {
+    const storage = JSON.parse(localStorage.getItem('times') || '{}');
+    if (storage) {
+      this.times = storage;
     }
-    this.settingsUpdated.emit(this.times);
   }
 
-  saveSettings() {
-    // use local storage
+  updateTime(newTime: any) {
+    this.times = newTime;
     localStorage.setItem('times', JSON.stringify(this.times));
+    this.timesSubject.next(newTime);
   }
 }

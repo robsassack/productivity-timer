@@ -2,19 +2,19 @@
   <div class="settings-menu" (click)="$event.stopPropagation()">
     <h2 class="title">Settings</h2>
     <div class="close" (click)="toggleSettingsMenu()"><i class="fa-solid fa-xmark"></i></div>
-    <h4>Time (in minutes)</h4>
+    <h3 class="time-title">Time (in minutes)</h3>
     <div class="time-settings">
       <div class="time-form">
-        <label for="hours">Work</label>
-        <input type="number">
+        <label for="work-mins">Work</label>
+        <input id="work-mins" type="number">
       </div>
       <div class="time-form">
-        <label for="hours">Break</label>
-        <input type="number">
+        <label for="break-mins">Break</label>
+        <input id="break-mins" type="number">
       </div>
       <div class="time-form">
-        <label for="hours">Long Break</label>
-        <input type="number">
+        <label for="long-break-mins">Long Break</label>
+        <input id="long-break-mins" type="number">
       </div>
     </div>
   </div>

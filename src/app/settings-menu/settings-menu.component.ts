@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-settings-menu',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 export class SettingsMenuComponent {
   showSettingsMenu = true;
 
-  constructor() { }
+  constructor(private settingsService: SettingsService) {}
 
   toggleSettingsMenu() {
     this.showSettingsMenu = !this.showSettingsMenu;
