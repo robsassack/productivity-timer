@@ -1,5 +1,6 @@
 <header>
   <span>Productivity Timer</span>
-  <button class="settings-button" aria-label="settings"><i class="fa-solid fa-gear"></i></button>
+  <button class="settings-button" aria-label="settings" (click)="callToggleSettingsMenu()"><i class="fa-solid fa-gear"></i></button>
 </header>
 <app-timer class="timer-container"></app-timer>
+<app-settings-menu class="settings-container"></app-settings-menu>

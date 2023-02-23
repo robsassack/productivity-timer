@@ -1,0 +1,19 @@
+<div *ngIf="showSettingsMenu" class="settings-menu-container" (click)="toggleSettingsMenu()">
+  <div class="settings-menu" (click)="$event.stopPropagation()">
+    <h2 class="title">Settings</h2>
+    <h4>Time (in minutes)</h4>
+    <div class="time-settings">
+      <div class="time-form">
+        <label for="hours">Work</label>
+        <input type="number">
+      </div>
+      <div class="time-form">
+        <label for="hours">Break</label>
+        <input type="number">
+      </div>
+      <div class="time-form">
+        <label for="hours">Long Break</label>
+        <input type="number">
+      </div>
+    </div>
+  </div>

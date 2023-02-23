@@ -1,5 +1,5 @@
 <div class="timer" [ngStyle]="{'background-color': interval[currentInterval%8].bgColor}">
-  <p class="interval">{{interval[currentInterval%8].name}} - #{{intervalFormat(currentInterval)}}</p>
+  <p class="interval">{{interval[currentInterval%8].name}} - <b>#{{intervalFormat(currentInterval)}}</b></p>
   <p class="time">{{timeFormat(time)}}</p>
   <div class="buttons">
     <!-- show prev button only if interval is greater than 0 and if timer is null -->
