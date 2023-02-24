@@ -57,6 +57,10 @@ export class SettingsMenuComponent {
     const value = input.value;
     const keyPressed = event.key;
 
+    if (event.code === 'Backspace' || event.code === 'Delete' || event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
+      return;
+    }
+
     // prevent all negative numbers
     if (keyPressed === '-') {
       event.preventDefault();
@@ -65,6 +69,16 @@ export class SettingsMenuComponent {
 
     // do not allow decimals
     if (keyPressed === '.') {
+      event.preventDefault();
+      return;
+    }
+
+    // prevent numbers bigger than 999
+    if (value.length >= 3) {
+      // if user has highlighted text, allow them to replace it
+      if (window.getSelection()?.toString().length) {
+        return;
+      }
       event.preventDefault();
       return;
     }
