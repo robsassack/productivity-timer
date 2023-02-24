@@ -33,8 +33,6 @@ export class TimerComponent {
         }
       });
       this.time = this.interval[this.currentInterval%8].time;
-      this.setBackgroundColor();
-      this.updateTitle();
     });
   }
 

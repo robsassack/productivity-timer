@@ -5,25 +5,26 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SettingsService {
-  private times = {
+  private defaultTimes = {
     work: 1500,
     break: 300,
     longBreak: 900
   };
 
-  private timesSubject = new BehaviorSubject(this.times);
+  private timesSubject = new BehaviorSubject(this.defaultTimes);
   times$ = this.timesSubject.asObservable();
 
   constructor() {
     const storage = JSON.parse(localStorage.getItem('times') || '{}');
-    if (storage) {
-      this.times = storage;
+    if (storage && Object.keys(storage).length !== 0) {
+      this.timesSubject.next(storage);
+    } else {
+      localStorage.setItem('times', JSON.stringify(this.defaultTimes));
     }
   }
 
   updateTime(newTime: any) {
-    this.times = newTime;
-    localStorage.setItem('times', JSON.stringify(this.times));
+    localStorage.setItem('times', JSON.stringify(newTime));
     this.timesSubject.next(newTime);
   }
 }
