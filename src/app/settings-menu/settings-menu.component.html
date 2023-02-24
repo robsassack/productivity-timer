@@ -17,5 +17,5 @@
         <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime" (change)="updateTimes($event)" min="1" (keydown)="inputValidation($event)">
       </div>
     </div>
-    <button (click)="resetTimes()">Reset Times</button>
+    <button class="reset-button" (click)="resetTimes()">Reset Times</button>
   </div>
