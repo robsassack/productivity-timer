@@ -6,15 +6,15 @@
     <div class="time-settings">
       <div class="time-form">
         <label for="work-mins">Work</label>
-        <input id="work-mins" type="number" [(ngModel)]="workTime" (change)="updateTimes()" min="1">
+        <input id="work-mins" type="number" [(ngModel)]="workTime" (change)="updateTimes($event)" min="1" (keydown)="inputValidation($event)">
       </div>
       <div class="time-form">
         <label for="break-mins">Break</label>
-        <input id="break-mins" type="number" [(ngModel)]="breakTime" (change)="updateTimes()" min="1">
+        <input id="break-mins" type="number" [(ngModel)]="breakTime" (change)="updateTimes($event)" min="1" (keydown)="inputValidation($event)">
       </div>
       <div class="time-form">
         <label for="long-break-mins">Long Break</label>
-        <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime" (change)="updateTimes()" min="1">
+        <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime" (change)="updateTimes($event)" min="1" (keydown)="inputValidation($event)">
       </div>
     </div>
     <button (click)="resetTimes()">Reset Times</button>
