@@ -7,7 +7,7 @@ import { SettingsService } from '../settings.service';
   styleUrls: ['./settings-menu.component.css']
 })
 export class SettingsMenuComponent {
-  showSettingsMenu = true;
+  showSettingsMenu = false;
 
   workTime!: number;
   breakTime!: number;
