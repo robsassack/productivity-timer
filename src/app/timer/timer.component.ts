@@ -114,6 +114,7 @@ export class TimerComponent {
     }
     this.timer = null;
     this.pauseTimer = false;
+    this.setFavicon();
     this.setBackgroundColor();
     this.updateTitle();
   }
@@ -127,6 +128,7 @@ export class TimerComponent {
     }
     this.timer = null;
     this.pauseTimer = false;
+    this.setFavicon();
     this.setBackgroundColor();
     this.updateTitle();
   }
@@ -140,8 +142,28 @@ export class TimerComponent {
     }
     this.timer = null;
     this.pauseTimer = false;
+    this.setFavicon();
     this.setBackgroundColor();
     this.updateTitle();
+  }
+
+  setFavicon() {
+    // set favicon based on interval
+    let link: any = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    switch (this.interval[this.currentInterval % 8].name) {
+      case 'Work':
+        link.href = 'assets/favicon-work.ico';
+        break;
+      case 'Break':
+        link.href = 'assets/favicon-break.ico';
+        break;
+      case 'Long Break':
+        link.href = 'assets/favicon-longbreak.ico';
+        break;
+    }
+    document.getElementsByTagName('head')[0].appendChild(link);
   }
 
   private setBackgroundColor() {
