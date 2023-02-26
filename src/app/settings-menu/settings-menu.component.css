@@ -90,3 +90,23 @@
 .reset-button:active {
   background-color: #e6e6e6;
 }
+
+.sound-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sound-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#alert-sound {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}

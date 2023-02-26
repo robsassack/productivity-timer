@@ -23,7 +23,8 @@
     <div class="sound-settings">
       <h3 class="setting-subtitle">Sound</h3>
       <div class="sound-options">
-        <select [(ngModel)]="selectedSound" (change)="updateSound($event)">
+        <label for="alert-sound">Alert Sound</label>
+        <select id="alert-sound" [(ngModel)]="selectedSound" (change)="updateSound($event)">
           <option *ngFor="let sound of soundList" [value]="sound">{{sound}}</option>
         </select>
     </div>
