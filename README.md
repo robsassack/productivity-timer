@@ -29,3 +29,11 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Credits
+
+Synth alert sound from [freesound.org](https://freesound.org/people/Tissman/sounds/521849/)
+
+Elevator alert sound from [freesound.org](https://freesound.org/people/tim.kahn/sounds/91926/)
+
+Alarm clock alert sound from [freesound.org](https://freesound.org/people/ZyryTSounds/sounds/219244/)

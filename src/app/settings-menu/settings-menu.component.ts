@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../settings.service';
+import { sounds } from '../sounds';
 
 @Component({
   selector: 'app-settings-menu',
@@ -7,11 +8,15 @@ import { SettingsService } from '../settings.service';
   styleUrls: ['./settings-menu.component.css']
 })
 export class SettingsMenuComponent {
-  showSettingsMenu = false;
+  showSettingsMenu = true;
+  playSound = new Audio();
 
   workTime!: number;
   breakTime!: number;
   longBreakTime!: number;
+
+  soundList = sounds.map(sound => sound.name);
+  selectedSound!: string;
 
   constructor(private settingsService: SettingsService) {}
 
@@ -20,6 +25,10 @@ export class SettingsMenuComponent {
       this.workTime = times.work / 60;
       this.breakTime = times.break / 60;
       this.longBreakTime = times.longBreak / 60;
+    });
+
+    this.settingsService.sound$.subscribe(sound => {
+      this.selectedSound = sound;
     });
   }
 
@@ -50,6 +59,19 @@ export class SettingsMenuComponent {
       longBreak: this.longBreakTime * 60
     };
     this.settingsService.updateTime(times);
+  }
+
+  updateSound(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const sound = this.soundList.find(sound => sound === input.value);
+    // get sound path from sounds array
+    const soundPath = sounds.find(sound => sound.name === input.value)?.path;
+    this.playSound.src = soundPath!;
+    if (soundPath) {
+      this.playSound.load();
+      this.playSound.play();
+    }
+    this.settingsService.updateSound(sound);
   }
 
   inputValidation(event: KeyboardEvent) {

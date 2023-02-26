@@ -11,8 +11,13 @@ export class SettingsService {
     longBreak: 900
   };
 
+  private defaultSound = "Synth";
+
   private timesSubject = new BehaviorSubject(this.defaultTimes);
   times$ = this.timesSubject.asObservable();
+
+  private soundSubject = new BehaviorSubject(this.defaultSound);
+  sound$ = this.soundSubject.asObservable();
 
   constructor() {
     const storage = JSON.parse(localStorage.getItem('times') || '{}');
@@ -21,10 +26,22 @@ export class SettingsService {
     } else {
       localStorage.setItem('times', JSON.stringify(this.defaultTimes));
     }
+
+    const sound = JSON.parse(localStorage.getItem('sound') || '{}');
+    if (sound && Object.keys(sound).length !== 0) {
+      this.soundSubject.next(sound);
+    } else {
+      localStorage.setItem('sound', JSON.stringify(this.defaultSound));
+    }
   }
 
   updateTime(newTime: any) {
     localStorage.setItem('times', JSON.stringify(newTime));
     this.timesSubject.next(newTime);
+  }
+
+  updateSound(newSound: any) {
+    localStorage.setItem('sound', JSON.stringify(newSound));
+    this.soundSubject.next(newSound);
   }
 }

@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subscription } from 'rxjs';
 import { SettingsService } from '../settings.service';
+import { sounds } from '../sounds';
 
 @Component({
   selector: 'app-timer',
@@ -33,6 +34,9 @@ export class TimerComponent {
         }
       });
       this.time = this.interval[this.currentInterval%8].time;
+    });
+    this.settingsService.sound$.subscribe(sound => {
+      this.alertSound.src = sounds.find(s => s.name === sound)?.path!;
     });
   }
 
@@ -71,7 +75,6 @@ export class TimerComponent {
             this.updateTitle();
           } else {
             // play sound
-            this.alertSound.src = 'assets/alert.wav';
             this.alertSound.load();
             this.alertSound.play();
             this.next();

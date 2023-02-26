@@ -2,20 +2,29 @@
   <div class="settings-menu" (mousedown)="$event.stopPropagation()">
     <h2 class="title">Settings</h2>
     <div class="close" (click)="toggleSettingsMenu()"><i class="fa-solid fa-xmark"></i></div>
-    <h3 class="time-title">Time (in minutes)</h3>
     <div class="time-settings">
-      <div class="time-form">
-        <label for="work-mins">Work</label>
-        <input id="work-mins" type="number" [(ngModel)]="workTime" (change)="updateTimes($event)" min="1" max="999" (keydown)="inputValidation($event)">
+      <h3 class="setting-subtitle">Time (in minutes)</h3>
+      <div class="time-fields">
+        <div class="time-form">
+          <label for="work-mins">Work</label>
+          <input id="work-mins" type="number" [(ngModel)]="workTime" (change)="updateTimes($event)" min="1" max="999" (keydown)="inputValidation($event)">
+        </div>
+        <div class="time-form">
+          <label for="break-mins">Break</label>
+          <input id="break-mins" type="number" [(ngModel)]="breakTime" (change)="updateTimes($event)" min="1" max="999" (keydown)="inputValidation($event)">
+        </div>
+        <div class="time-form">
+          <label for="long-break-mins">Long Break</label>
+          <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime" (change)="updateTimes($event)" min="1" max="999" (keydown)="inputValidation($event)">
+        </div>
       </div>
-      <div class="time-form">
-        <label for="break-mins">Break</label>
-        <input id="break-mins" type="number" [(ngModel)]="breakTime" (change)="updateTimes($event)" min="1" max="999" (keydown)="inputValidation($event)">
-      </div>
-      <div class="time-form">
-        <label for="long-break-mins">Long Break</label>
-        <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime" (change)="updateTimes($event)" min="1" max="999" (keydown)="inputValidation($event)">
-      </div>
+      <button class="reset-button" (click)="resetTimes()">Reset Times</button>
     </div>
-    <button class="reset-button" (click)="resetTimes()">Reset Times</button>
+    <div class="sound-settings">
+      <h3 class="setting-subtitle">Sound</h3>
+      <div class="sound-options">
+        <select [(ngModel)]="selectedSound" (change)="updateSound($event)">
+          <option *ngFor="let sound of soundList" [value]="sound">{{sound}}</option>
+        </select>
+    </div>
   </div>
