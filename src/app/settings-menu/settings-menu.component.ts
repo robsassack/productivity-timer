@@ -8,7 +8,7 @@ import { sounds } from '../sounds';
   styleUrls: ['./settings-menu.component.css']
 })
 export class SettingsMenuComponent {
-  showSettingsMenu = true;
+  showSettingsMenu = false;
   playSound = new Audio();
 
   workTime!: number;
