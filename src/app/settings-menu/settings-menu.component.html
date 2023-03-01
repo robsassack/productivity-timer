@@ -7,17 +7,17 @@
       <div class="time-fields">
         <div class="time-form">
           <label for="work-mins">Work</label>
-          <input id="work-mins" type="number" [(ngModel)]="workTime" (ngModelChange)="updateTimes($event)" min="1"
+          <input id="work-mins" type="number" [(ngModel)]="workTime" (ngModelChange)="updateTimes($event, 'work')" min="1"
             max="999" (keydown)="inputValidation($event)">
         </div>
         <div class="time-form">
           <label for="break-mins">Break</label>
-          <input id="break-mins" type="number" [(ngModel)]="breakTime" (ngModelChange)="updateTimes($event)" min="1"
+          <input id="break-mins" type="number" [(ngModel)]="breakTime" (ngModelChange)="updateTimes($event, 'break')" min="1"
             max="999" (keydown)="inputValidation($event)">
         </div>
         <div class="time-form">
           <label for="long-break-mins">Long Break</label>
-          <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime" (ngModelChange)="updateTimes($event)"
+          <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime" (ngModelChange)="updateTimes($event, 'longBreak')"
             min="1" max="999" (keydown)="inputValidation($event)">
         </div>
       </div>

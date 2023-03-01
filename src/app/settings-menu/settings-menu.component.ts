@@ -37,9 +37,33 @@ export class SettingsMenuComponent {
     this.showSettingsMenu = !this.showSettingsMenu;
   }
 
-  updateTimes(event: Event) {
-    if (Number(event) < 1 || Number(event) > 999 || String(event) === '') {
-      return;
+  updateTimes(event: Event, type: string) {
+    if (Number(event) < 1 || String(event) === '') {
+      switch (type) {
+        case 'work':
+          this.workTime = 1;
+          break;
+        case 'break':
+          this.breakTime = 1;
+          break;
+        case 'longBreak':
+          this.longBreakTime = 1;
+          break;
+      }
+    }
+
+    if (Number(event) > 999) {
+      switch (type) {
+        case 'work':
+          this.workTime = 999;
+          break;
+        case 'break':
+          this.breakTime = 999;
+          break;
+        case 'longBreak':
+          this.longBreakTime = 999;
+          break;
+      }
     }
 
     const times = {
