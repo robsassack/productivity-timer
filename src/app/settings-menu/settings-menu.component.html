@@ -26,9 +26,15 @@
     <div class="sound-settings">
       <h3 class="setting-subtitle">Sound</h3>
       <div class="sound-options">
-        <label for="alert-sound">Alert Sound</label>
-        <select id="alert-sound" [(ngModel)]="selectedSound" (change)="updateSound($event)">
-          <option *ngFor="let sound of soundList" [value]="sound">{{sound}}</option>
-        </select>
+        <div class="sound-form">
+          <label for="alert-sound">Alert Sound</label>
+          <select id="alert-sound" [(ngModel)]="selectedSound" (change)="updateSound($event)">
+            <option *ngFor="let sound of soundList" [value]="sound">{{sound}}</option>
+          </select>
+        </div>
+        <div class="sound-form">
+          <label for="button-sound">Button Sound</label>
+          <input type="checkbox" name="button-sound" id="button-sound" [(ngModel)]="buttonSound" (click)="updateButtonSound($event)">
+        </div>
       </div>
     </div>

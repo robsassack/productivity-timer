@@ -11,6 +11,7 @@ import { sounds } from '../sounds';
 })
 export class TimerComponent {
   alertSound = new Audio();
+  buttonSound = new Audio();
   times = new BehaviorSubject({
     work: 1500,
     break: 300,
@@ -37,6 +38,13 @@ export class TimerComponent {
     });
     this.settingsService.sound$.subscribe(sound => {
       this.alertSound.src = sounds.find(s => s.name === sound)?.path!;
+    });
+    this.settingsService.buttonSound$.subscribe(playSound => {
+      if (playSound) {
+        this.buttonSound.src = 'assets/button.wav';
+      } else {
+        this.buttonSound.src = '';
+      }
     });
   }
 
@@ -67,6 +75,7 @@ export class TimerComponent {
   }
 
   start() {
+    this.playButtonSound();
     if (!this.timer) {
       this.timer = interval(1000).subscribe(val => {
         if (!this.pauseTimer) {
@@ -75,8 +84,10 @@ export class TimerComponent {
             this.updateTitle();
           } else {
             // play sound
-            this.alertSound.load();
-            this.alertSound.play();
+            if (this.alertSound.readyState >= 2) {
+              this.alertSound.load();
+              this.alertSound.play();
+            }
             this.next();
           }
         }
@@ -85,6 +96,7 @@ export class TimerComponent {
   }
 
   pause() {
+    this.playButtonSound();
     // pause timer
     // console.log('timer paused');
     this.pauseTimer = true;
@@ -92,12 +104,14 @@ export class TimerComponent {
   }
 
   resume() {
+    this.playButtonSound();
     // resume timer
     // console.log('timer resumed');
     this.pauseTimer = false;
   }
 
   reset() {
+    this.playButtonSound();
     // reset timer
     // console.log('reset timer');
     this.time = this.interval[this.currentInterval%8].time;
@@ -108,6 +122,7 @@ export class TimerComponent {
   }
 
   next() {
+    this.playButtonSound();
     // next interval
     // console.log('next interval');
     this.currentInterval++;
@@ -123,6 +138,7 @@ export class TimerComponent {
   }
 
   prev() {
+    this.playButtonSound();
     // previous interval
     this.currentInterval--;
     this.time = this.interval[this.currentInterval%8].time;
@@ -137,6 +153,7 @@ export class TimerComponent {
   }
 
   resetInterval() {
+    this.playButtonSound();
     // reset interval
     this.currentInterval = 0;
     this.time = this.interval[this.currentInterval%8].time;
@@ -212,5 +229,12 @@ export class TimerComponent {
       return interval / 2;
     }
     return (interval + 1) / 2;
+  }
+
+  playButtonSound() {
+    if (this.buttonSound.readyState >= 2) {
+      this.buttonSound.load();
+      this.buttonSound.play();
+    }
   }
 }

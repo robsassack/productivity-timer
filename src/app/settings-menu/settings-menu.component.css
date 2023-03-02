@@ -13,7 +13,7 @@
   flex-direction: column;
   gap: 10px;
   position: absolute;
-  top: 20%;
+  top: 140px;
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: 75px;
@@ -43,10 +43,10 @@
 }
 
 .setting-subtitle {
-  font-size: 1em;
+  font-size: 1.1em;
 }
 
-.time-settings {
+.time-settings, .sound-settings, .sound-options {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -91,16 +91,10 @@
   background-color: #e6e6e6;
 }
 
-.sound-settings {
+.sound-form {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.sound-options {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 #alert-sound {
@@ -109,4 +103,10 @@
   border-radius: 5px;
   box-sizing: border-box;
   font-size: 16px;
+}
+
+#button-sound {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }

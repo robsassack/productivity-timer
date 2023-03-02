@@ -10,6 +10,7 @@ import { sounds } from '../sounds';
 export class SettingsMenuComponent {
   showSettingsMenu = false;
   playSound = new Audio();
+  playButtonSound = new Audio();
 
   workTime!: number;
   breakTime!: number;
@@ -17,6 +18,8 @@ export class SettingsMenuComponent {
 
   soundList = sounds.map((sound) => sound.name);
   selectedSound!: string;
+
+  buttonSound!: boolean;
 
   constructor(private settingsService: SettingsService) {}
 
@@ -29,6 +32,10 @@ export class SettingsMenuComponent {
 
     this.settingsService.sound$.subscribe((sound) => {
       this.selectedSound = sound;
+    });
+
+    this.settingsService.buttonSound$.subscribe((sound) => {
+      this.buttonSound = sound;
     });
   }
 
@@ -85,6 +92,16 @@ export class SettingsMenuComponent {
       this.playSound.play();
     }
     this.settingsService.updateSound(sound);
+  }
+
+  updateButtonSound(event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      this.playButtonSound.src = 'assets/button.wav';
+      this.playButtonSound.load();
+      this.playButtonSound.play();
+    }
+    this.settingsService.updateButtonSound(checked);
   }
 
   inputValidation(event: KeyboardEvent) {
