@@ -6,8 +6,8 @@
       <h3 class="setting-subtitle">Time (in minutes)</h3>
       <div class="time-fields">
         <div class="time-form">
-          <label for="work-mins">Work</label>
-          <input id="work-mins" type="number" [(ngModel)]="workTime" (ngModelChange)="updateTimes($event, 'work')"
+          <label for="focus-mins">Focus</label>
+          <input id="focus-mins" type="number" [(ngModel)]="focusTime" (ngModelChange)="updateTimes($event, 'focus')"
             min="1" max="999" (keydown)="inputValidation($event)">
         </div>
         <div class="time-form">

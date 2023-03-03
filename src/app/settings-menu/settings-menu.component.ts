@@ -12,7 +12,7 @@ export class SettingsMenuComponent {
   playSound = new Audio();
   playButtonSound = new Audio();
 
-  workTime!: number;
+  focusTime!: number;
   breakTime!: number;
   longBreakTime!: number;
 
@@ -25,7 +25,7 @@ export class SettingsMenuComponent {
 
   ngOnInit() {
     this.settingsService.times$.subscribe((times) => {
-      this.workTime = times.work / 60;
+      this.focusTime = times.focus / 60;
       this.breakTime = times.break / 60;
       this.longBreakTime = times.longBreak / 60;
     });
@@ -47,8 +47,8 @@ export class SettingsMenuComponent {
   updateTimes(event: Event, type: string) {
     if (Number(event) < 1 || String(event) === '') {
       switch (type) {
-        case 'work':
-          this.workTime = 1;
+        case 'focus':
+          this.focusTime = 1;
           break;
         case 'break':
           this.breakTime = 1;
@@ -61,8 +61,8 @@ export class SettingsMenuComponent {
 
     if (Number(event) > 999) {
       switch (type) {
-        case 'work':
-          this.workTime = 999;
+        case 'focus':
+          this.focusTime = 999;
           break;
         case 'break':
           this.breakTime = 999;
@@ -74,7 +74,7 @@ export class SettingsMenuComponent {
     }
 
     const times = {
-      work: this.workTime * 60,
+      focus: this.focusTime * 60,
       break: this.breakTime * 60,
       longBreak: this.longBreakTime * 60,
     };
@@ -142,6 +142,6 @@ export class SettingsMenuComponent {
   }
 
   resetTimes() {
-    this.settingsService.updateTime({ work: 1500, break: 300, longBreak: 900 });
+    this.settingsService.updateTime({ focus: 1500, break: 300, longBreak: 900 });
   }
 }

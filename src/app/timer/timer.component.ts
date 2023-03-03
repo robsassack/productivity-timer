@@ -13,7 +13,7 @@ export class TimerComponent {
   alertSound = new Audio();
   buttonSound = new Audio();
   times = new BehaviorSubject({
-    work: 1500,
+    focus: 1500,
     break: 300,
     longBreak: 900
   });
@@ -26,8 +26,8 @@ export class TimerComponent {
     });
     this.times.subscribe(times => {
       this.interval.forEach(i => {
-        if (i.name === 'Work') {
-          i.time = times.work;
+        if (i.name === 'Focus') {
+          i.time = times.focus;
         } else if (i.name === 'Break') {
           i.time = times.break;
         } else if (i.name === 'Long Break') {
@@ -52,17 +52,17 @@ export class TimerComponent {
     this.settingsService.updateTime(this.times.getValue());
   }
 
-  time = this.times.getValue().work;
+  time = this.times.getValue().focus;
   timer: any = null;
   pauseTimer: boolean = false;
   interval = [
-    { name: 'Work', time: this.times.getValue().work, bgColor: "#9f1239" },
+    { name: 'Focus', time: this.times.getValue().focus, bgColor: "#9f1239" },
     { name: 'Break', time: this.times.getValue().break, bgColor: "#075985" },
-    { name: 'Work', time: this.times.getValue().work, bgColor: "#9f1239" },
+    { name: 'Focus', time: this.times.getValue().focus, bgColor: "#9f1239" },
     { name: 'Break', time: this.times.getValue().break, bgColor: "#075985" },
-    { name: 'Work', time: this.times.getValue().work, bgColor: "#9f1239" },
+    { name: 'Focus', time: this.times.getValue().focus, bgColor: "#9f1239" },
     { name: 'Break', time: this.times.getValue().break, bgColor: "#075985" },
-    { name: 'Work', time: this.times.getValue().work, bgColor: "#9f1239" },
+    { name: 'Focus', time: this.times.getValue().focus, bgColor: "#9f1239" },
     { name: 'Long Break', time: this.times.getValue().longBreak, bgColor: "#065f46" },
   ]
   currentInterval = 0;
@@ -173,8 +173,8 @@ export class TimerComponent {
     link.type = 'image/x-icon';
     link.rel = 'shortcut icon';
     switch (this.interval[this.currentInterval % 8].name) {
-      case 'Work':
-        link.href = 'assets/favicon-work.ico';
+      case 'Focus':
+        link.href = 'assets/favicon-focus.ico';
         break;
       case 'Break':
         link.href = 'assets/favicon-break.ico';
@@ -189,7 +189,7 @@ export class TimerComponent {
   private setBackgroundColor() {
     // set background color based on interval
     switch (this.interval[this.currentInterval % 8].name) {
-      case 'Work':
+      case 'Focus':
         document.body.style.backgroundColor = '#be123c';
         break;
       case 'Break':
@@ -224,7 +224,7 @@ export class TimerComponent {
   }
 
   intervalFormat(interval: number) {
-    // format interval number based on work and breaks
+    // format interval number based on focus and breaks
     if (interval % 2 == 0) {
       return interval / 2;
     }

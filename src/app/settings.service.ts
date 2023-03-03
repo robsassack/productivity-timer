@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SettingsService {
   private defaultTimes = {
-    work: 1500,
+    focus: 1500,
     break: 300,
     longBreak: 900
   };
@@ -25,7 +25,13 @@ export class SettingsService {
   constructor() {
     const storage = JSON.parse(localStorage.getItem('times') || '{}');
     if (storage && Object.keys(storage).length !== 0) {
-      this.timesSubject.next(storage);
+      // if any of the times are missing or NaN, use the default times
+      if (!storage.focus || !storage.break || !storage.longBreak || isNaN(storage.focus) || isNaN(storage.break) || isNaN(storage.longBreak)) {
+        localStorage.setItem('times', JSON.stringify(this.defaultTimes));
+        this.timesSubject.next(this.defaultTimes);
+      } else {
+        this.timesSubject.next(storage);
+      }
     } else {
       localStorage.setItem('times', JSON.stringify(this.defaultTimes));
     }
