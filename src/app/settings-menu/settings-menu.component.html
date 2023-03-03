@@ -7,18 +7,18 @@
       <div class="time-fields">
         <div class="time-form">
           <label for="work-mins">Work</label>
-          <input id="work-mins" type="number" [(ngModel)]="workTime" (ngModelChange)="updateTimes($event, 'work')" min="1"
-            max="999" (keydown)="inputValidation($event)">
+          <input id="work-mins" type="number" [(ngModel)]="workTime" (ngModelChange)="updateTimes($event, 'work')"
+            min="1" max="999" (keydown)="inputValidation($event)">
         </div>
         <div class="time-form">
           <label for="break-mins">Break</label>
-          <input id="break-mins" type="number" [(ngModel)]="breakTime" (ngModelChange)="updateTimes($event, 'break')" min="1"
-            max="999" (keydown)="inputValidation($event)">
+          <input id="break-mins" type="number" [(ngModel)]="breakTime" (ngModelChange)="updateTimes($event, 'break')"
+            min="1" max="999" (keydown)="inputValidation($event)">
         </div>
         <div class="time-form">
           <label for="long-break-mins">Long Break</label>
-          <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime" (ngModelChange)="updateTimes($event, 'longBreak')"
-            min="1" max="999" (keydown)="inputValidation($event)">
+          <input id="long-break-mins" type="number" [(ngModel)]="longBreakTime"
+            (ngModelChange)="updateTimes($event, 'longBreak')" min="1" max="999" (keydown)="inputValidation($event)">
         </div>
       </div>
       <button class="reset-button" (click)="resetTimes()">Reset Times</button>
@@ -34,7 +34,15 @@
         </div>
         <div class="sound-form">
           <label for="button-sound">Button Sound</label>
-          <input type="checkbox" name="button-sound" id="button-sound" [(ngModel)]="buttonSound" (click)="updateButtonSound($event)">
+          <input type="checkbox" name="button-sound" id="button-sound" [(ngModel)]="buttonSound"
+            (click)="updateButtonSound($event)">
         </div>
       </div>
     </div>
+    <div class="github-container">
+      <a href="https://github.com/robsassack/productivity-timer">
+        <i class="fa-brands fa-github github-link"></i>
+      </a>
+    </div>
+  </div>
+</div>

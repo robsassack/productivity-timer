@@ -16,14 +16,13 @@
   top: 140px;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin-top: 75px;
+  margin-top: 110px;
   width: 300px;
   padding: 15px;
   background-color: #f5f5f5;
   color: #333;
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  user-select: none;
 }
 
 .title {
@@ -109,4 +108,16 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.github-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.github-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 1.5em;
 }
