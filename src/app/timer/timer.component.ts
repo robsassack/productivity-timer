@@ -53,6 +53,7 @@ export class TimerComponent {
   }
 
   time = this.times.getValue().focus;
+  progress: number = 0;
   timer: any = null;
   pauseTimer: boolean = false;
   interval = [
@@ -82,6 +83,7 @@ export class TimerComponent {
           if (this.time > 0) {
             this.time--;
             this.updateTitle();
+            this.updateProgress();
           } else {
             // play sound
             if (this.alertSound.readyState >= 2) {
@@ -98,7 +100,6 @@ export class TimerComponent {
   pause() {
     this.playButtonSound();
     // pause timer
-    // console.log('timer paused');
     this.pauseTimer = true;
     this.updateTitle();
   }
@@ -106,25 +107,23 @@ export class TimerComponent {
   resume() {
     this.playButtonSound();
     // resume timer
-    // console.log('timer resumed');
     this.pauseTimer = false;
   }
 
   reset() {
     this.playButtonSound();
     // reset timer
-    // console.log('reset timer');
     this.time = this.interval[this.currentInterval%8].time;
     this.timer.unsubscribe();
     this.timer = null;
     this.pauseTimer = false;
+    this.progress = 0;
     this.updateTitle();
   }
 
   next() {
     this.playButtonSound();
     // next interval
-    // console.log('next interval');
     this.currentInterval++;
     this.time = this.interval[this.currentInterval%8].time;
     if (this.timer) {
@@ -132,6 +131,7 @@ export class TimerComponent {
     }
     this.timer = null;
     this.pauseTimer = false;
+    this.progress = 0;
     this.setFavicon();
     this.setBackgroundColor();
     this.updateTitle();
@@ -147,6 +147,7 @@ export class TimerComponent {
     }
     this.timer = null;
     this.pauseTimer = false;
+    this.progress = 0;
     this.setFavicon();
     this.setBackgroundColor();
     this.updateTitle();
@@ -162,6 +163,7 @@ export class TimerComponent {
     }
     this.timer = null;
     this.pauseTimer = false;
+    this.progress = 0;
     this.setFavicon();
     this.setBackgroundColor();
     this.updateTitle();
@@ -236,5 +238,12 @@ export class TimerComponent {
       this.buttonSound.load();
       this.buttonSound.play();
     }
+  }
+
+  updateProgress() {
+    // calculate current progress
+    let progressWidth = (this.time / this.interval[this.currentInterval%8].time) * 100;
+    progressWidth = 100 - progressWidth;
+    this.progress = progressWidth;
   }
 }

@@ -8,6 +8,7 @@
   transition: background-color 1000ms ease;
   padding: 25px 55px;
   border-radius: 10px;
+  transition: all 1000ms ease;
 }
 
 .interval {
@@ -65,4 +66,21 @@ button:disabled {
   font-size: 1em;
   padding: 4px 5px;
   width: 35px;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 16px;
+  width: 85%;
+  height: 4px;
+  background-color: #000;
+  border-radius: 10px;
+  transition: all 1000ms ease;
+}
+
+.progress {
+  position: relative;
+  height: 4px;
+  background-color: #ffffff;
+  border-radius: 10px;
 }

@@ -1,11 +1,13 @@
-<div class="timer" [ngStyle]="{'background-color': interval[currentInterval%8].bgColor}">
+<div class="timer" [ngStyle]="{'background-color': interval[currentInterval%8].bgColor, 'padding-bottom': (progress === 0) ? '25px' : '40px'}">
   <p class="interval">{{interval[currentInterval%8].name}} - <b>#{{intervalFormat(currentInterval)}}</b></p>
   <p class="time">{{timeFormat(time)}}</p>
   <div class="buttons">
     <!-- show prev button only if interval is greater than 0 and if timer is null -->
-    <button *ngIf="currentInterval > 0 && timer === null" (click)="prev()" aria-label="previous"><i class="fa-solid fa-backward-step"></i></button>
+    <button *ngIf="currentInterval > 0 && timer === null" (click)="prev()" aria-label="previous"><i
+        class="fa-solid fa-backward-step"></i></button>
     <!-- if interval is 0 and timer is null, show a disabled prev button -->
-    <button *ngIf="currentInterval === 0 && timer === null" disabled aria-label="previous"><i class="fa-solid fa-backward-step"></i></button>
+    <button *ngIf="currentInterval === 0 && timer === null" disabled aria-label="previous"><i
+        class="fa-solid fa-backward-step"></i></button>
     <!-- only show reset if timer is not null -->
     <button *ngIf="timer !== null" (click)="reset()"><i class="fa-solid fa-rotate-right"></i></button>
     <button *ngIf="timer === null" (click)="start()" class="timer-button">Start</button>
@@ -13,5 +15,9 @@
     <button *ngIf="pauseTimer && timer !== null" (click)="resume()" class="timer-button">Resume</button>
     <button (click)="next()" aria-label="skip"><i class="fa-solid fa-forward-step"></i></button>
   </div>
-  <button *ngIf="currentInterval > 0" class="interval-reset" (click)="resetInterval()" aria-label="reset interval"><i class="fa-solid fa-backward-fast"></i></button>
+  <button *ngIf="currentInterval > 0" class="interval-reset" (click)="resetInterval()" aria-label="reset interval"><i
+      class="fa-solid fa-backward-fast"></i></button>
+  <div class="progress-bar" [ngStyle]="{'opacity': (progress === 0) ? '0' : '0.3'}">
+    <div class="progress" [ngStyle]="{'width': progress + '%'}"></div>
+  </div>
 </div>
