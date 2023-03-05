@@ -43,11 +43,11 @@ export class SettingsService {
       localStorage.setItem('sound', JSON.stringify(this.defaultSound));
     }
 
-    const buttonSound = JSON.parse(localStorage.getItem('buttonSound') || '{}');
-    if (buttonSound !== null) {
-      this.buttonSoundSubject.next(buttonSound);
+    const button = localStorage.getItem('buttonSound');
+    if (button !== null) {
+      this.buttonSoundSubject.next(JSON.parse(button));
     } else {
-      localStorage.setItem('buttonSound', JSON.stringify(this.defaultButtonSound));
+      localStorage.setItem('buttonSound', String(this.defaultButtonSound));
     }
   }
 
