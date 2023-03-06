@@ -57,7 +57,9 @@ export class TimerComponent {
         .reduce((acc, val) => acc.concat(val), [])
         .concat(this.longBreakObj);
       // update other stuff that needs to be updated
-      this.updateTime();
+      if (this.interval[this.currentInterval % this.interval.length].name !== 'Focus') {
+        this.updateTime();
+      }
       this.setBackgroundColor();
     });
   }
