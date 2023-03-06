@@ -1,4 +1,5 @@
-<div class="timer" [ngStyle]="{'background-color': interval[currentInterval%8].bgColor, 'padding-bottom': (progress === 0 && timer === null) ? '25px' : '40px'}">
+<div class="timer"
+  [ngStyle]="{'background-color': interval[currentInterval%8].bgColor, 'padding-bottom': (progress === 0 && timer === null) ? '25px' : '40px'}">
   <p class="interval">{{interval[currentInterval%8].name}} - <b>#{{intervalFormat(currentInterval)}}</b></p>
   <p class="time">{{timeFormat(time)}}</p>
   <div class="buttons">

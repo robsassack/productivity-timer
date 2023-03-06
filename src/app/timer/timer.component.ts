@@ -1,13 +1,13 @@
 import { Component, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subscription } from 'rxjs';
+import { BehaviorSubject, interval } from 'rxjs';
 import { SettingsService } from '../settings.service';
 import { sounds } from '../sounds';
 
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.css']
+  styleUrls: ['./timer.component.css'],
 })
 export class TimerComponent {
   alertSound = new Audio();
@@ -15,17 +15,20 @@ export class TimerComponent {
   times = new BehaviorSubject({
     focus: 1500,
     break: 300,
-    longBreak: 900
+    longBreak: 900,
   });
 
-  constructor(private titleService: Title, private settingsService: SettingsService) {}
+  constructor(
+    private titleService: Title,
+    private settingsService: SettingsService
+  ) {}
 
   ngOnInit() {
-    this.settingsService.times$.subscribe(times => {
+    this.settingsService.times$.subscribe((times) => {
       this.times.next(times);
     });
-    this.times.subscribe(times => {
-      this.interval.forEach(i => {
+    this.times.subscribe((times) => {
+      this.interval.forEach((i) => {
         if (i.name === 'Focus') {
           i.time = times.focus;
         } else if (i.name === 'Break') {
@@ -34,12 +37,13 @@ export class TimerComponent {
           i.time = times.longBreak;
         }
       });
-      this.time = this.interval[this.currentInterval%8].time;
+      this.time =
+        this.interval[this.currentInterval % this.interval.length].time;
     });
-    this.settingsService.sound$.subscribe(sound => {
-      this.alertSound.src = sounds.find(s => s.name === sound)?.path!;
+    this.settingsService.sound$.subscribe((sound) => {
+      this.alertSound.src = sounds.find((s) => s.name === sound)?.path!;
     });
-    this.settingsService.buttonSound$.subscribe(playSound => {
+    this.settingsService.buttonSound$.subscribe((playSound) => {
       if (playSound) {
         this.buttonSound.src = 'assets/button.wav';
       } else {
@@ -56,19 +60,26 @@ export class TimerComponent {
   progress: number = 0;
   timer: any = null;
   pauseTimer: boolean = false;
+  numberOfIntervals = 4;
   interval = [
-    { name: 'Focus', time: this.times.getValue().focus, bgColor: "#9f1239" },
-    { name: 'Break', time: this.times.getValue().break, bgColor: "#075985" },
-    { name: 'Focus', time: this.times.getValue().focus, bgColor: "#9f1239" },
-    { name: 'Break', time: this.times.getValue().break, bgColor: "#075985" },
-    { name: 'Focus', time: this.times.getValue().focus, bgColor: "#9f1239" },
-    { name: 'Break', time: this.times.getValue().break, bgColor: "#075985" },
-    { name: 'Focus', time: this.times.getValue().focus, bgColor: "#9f1239" },
-    { name: 'Long Break', time: this.times.getValue().longBreak, bgColor: "#065f46" },
-  ]
+    { name: 'Focus', time: this.times.getValue().focus, bgColor: '#9f1239' },
+    { name: 'Break', time: this.times.getValue().break, bgColor: '#075985' },
+    { name: 'Focus', time: this.times.getValue().focus, bgColor: '#9f1239' },
+    { name: 'Break', time: this.times.getValue().break, bgColor: '#075985' },
+    { name: 'Focus', time: this.times.getValue().focus, bgColor: '#9f1239' },
+    { name: 'Break', time: this.times.getValue().break, bgColor: '#075985' },
+    { name: 'Focus', time: this.times.getValue().focus, bgColor: '#9f1239' },
+    {
+      name: 'Long Break',
+      time: this.times.getValue().longBreak,
+      bgColor: '#065f46',
+    },
+  ];
   currentInterval = 0;
 
-  @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(event: any) {
+  @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(
+    event: any
+  ) {
     // alert user if timer is running
     if (this.timer && !this.pauseTimer) {
       event.returnValue = true;
@@ -78,7 +89,7 @@ export class TimerComponent {
   start() {
     this.playButtonSound();
     if (!this.timer) {
-      this.timer = interval(1000).subscribe(val => {
+      this.timer = interval(1000).subscribe((val) => {
         if (!this.pauseTimer) {
           if (this.time > 0) {
             this.time--;
@@ -113,7 +124,7 @@ export class TimerComponent {
   reset() {
     this.playButtonSound();
     // reset timer
-    this.time = this.interval[this.currentInterval%8].time;
+    this.time = this.interval[this.currentInterval % this.interval.length].time;
     this.timer.unsubscribe();
     this.timer = null;
     this.pauseTimer = false;
@@ -125,7 +136,7 @@ export class TimerComponent {
     this.playButtonSound();
     // next interval
     this.currentInterval++;
-    this.time = this.interval[this.currentInterval%8].time;
+    this.time = this.interval[this.currentInterval % this.interval.length].time;
     if (this.timer) {
       this.timer.unsubscribe();
     }
@@ -141,7 +152,7 @@ export class TimerComponent {
     this.playButtonSound();
     // previous interval
     this.currentInterval--;
-    this.time = this.interval[this.currentInterval%8].time;
+    this.time = this.interval[this.currentInterval % this.interval.length].time;
     if (this.timer) {
       this.timer.unsubscribe();
     }
@@ -157,7 +168,7 @@ export class TimerComponent {
     this.playButtonSound();
     // reset interval
     this.currentInterval = 0;
-    this.time = this.interval[this.currentInterval%8].time;
+    this.time = this.interval[this.currentInterval % this.interval.length].time;
     if (this.timer) {
       this.timer.unsubscribe();
     }
@@ -171,10 +182,12 @@ export class TimerComponent {
 
   setFavicon() {
     // set favicon based on interval
-    let link: any = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    let link: any =
+      document.querySelector("link[rel*='icon']") ||
+      document.createElement('link');
     link.type = 'image/x-icon';
     link.rel = 'shortcut icon';
-    switch (this.interval[this.currentInterval % 8].name) {
+    switch (this.interval[this.currentInterval % this.interval.length].name) {
       case 'Focus':
         link.href = 'assets/favicon-focus.ico';
         break;
@@ -190,7 +203,7 @@ export class TimerComponent {
 
   private setBackgroundColor() {
     // set background color based on interval
-    switch (this.interval[this.currentInterval % 8].name) {
+    switch (this.interval[this.currentInterval % this.interval.length].name) {
       case 'Focus':
         document.body.style.backgroundColor = '#be123c';
         break;
@@ -208,17 +221,20 @@ export class TimerComponent {
     let symbol = '';
     if (this.pauseTimer) {
       symbol = '⏸';
-    } if (!this.pauseTimer && this.timer) {
+    }
+    if (!this.pauseTimer && this.timer) {
       symbol = '▶️';
     }
-    let title = `${symbol} [${this.timeFormat(this.time)}] - ${this.interval[this.currentInterval%8].name}`;
+    let title = `${symbol} [${this.timeFormat(this.time)}] - ${
+      this.interval[this.currentInterval % this.interval.length].name
+    }`;
     this.titleService.setTitle(title);
   }
 
   timeFormat(time: number) {
     // format to MM:SS
     const minutes = Math.floor(time / 60);
-    const seconds = Math.floor((time % 60));
+    const seconds = Math.floor(time % 60);
     if (seconds < 10) {
       return minutes + ':0' + seconds;
     }
@@ -242,7 +258,10 @@ export class TimerComponent {
 
   updateProgress() {
     // calculate current progress
-    let progressWidth = (this.time / this.interval[this.currentInterval%8].time) * 100;
+    let progressWidth =
+      (this.time /
+        this.interval[this.currentInterval % this.interval.length].time) *
+      100;
     progressWidth = 100 - progressWidth;
     this.progress = progressWidth;
   }
