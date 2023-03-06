@@ -11,15 +11,13 @@ export class SettingsMenuComponent {
   showSettingsMenu = false;
   playSound = new Audio();
   playButtonSound = new Audio();
-
   focusTime!: number;
   breakTime!: number;
   longBreakTime!: number;
-
   soundList = sounds.map((sound) => sound.name);
   selectedSound!: string;
-
   buttonSound!: boolean;
+  intervalCount!: number;
 
   constructor(private settingsService: SettingsService) {}
 
@@ -36,6 +34,10 @@ export class SettingsMenuComponent {
 
     this.settingsService.buttonSound$.subscribe((sound) => {
       this.buttonSound = sound;
+    });
+
+    this.settingsService.intervalCount$.subscribe((count) => {
+      this.intervalCount = count;
     });
   }
 
@@ -104,6 +106,16 @@ export class SettingsMenuComponent {
     this.settingsService.updateButtonSound(checked);
   }
 
+  updateIntervalCount(event: Event) {
+    let value = Number(event);
+    if (value < 1) {
+      value = 1;
+    } else if (value > 20) {
+      value = 20;
+    }
+    this.settingsService.updateIntervalCount(value);
+  }
+
   inputValidation(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
     const value = input.value;
@@ -142,6 +154,10 @@ export class SettingsMenuComponent {
   }
 
   resetTimes() {
-    this.settingsService.updateTime({ focus: 1500, break: 300, longBreak: 900 });
+    this.settingsService.updateTime({
+      focus: 1500,
+      break: 300,
+      longBreak: 900,
+    });
   }
 }

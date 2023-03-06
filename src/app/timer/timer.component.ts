@@ -28,7 +28,7 @@ export class TimerComponent {
       this.times.next(times);
     });
     this.times.subscribe((times) => {
-      this.interval.forEach((i) => {
+      this.interval.forEach((i: any) => {
         if (i.name === 'Focus') {
           i.time = times.focus;
         } else if (i.name === 'Break') {
@@ -50,6 +50,16 @@ export class TimerComponent {
         this.buttonSound.src = '';
       }
     });
+    this.settingsService.intervalCount$.subscribe((count) => {
+      this.numberOfIntervals = count;
+      this.interval = Array(this.numberOfIntervals - 1)
+        .fill(this.breakObj)
+        .reduce((acc, val) => acc.concat(val), [])
+        .concat(this.longBreakObj);
+      // update other stuff that needs to be updated
+      this.updateTime();
+      this.setBackgroundColor();
+    });
   }
 
   updateTime() {
@@ -61,13 +71,11 @@ export class TimerComponent {
   timer: any = null;
   pauseTimer: boolean = false;
   numberOfIntervals = 4;
-  interval = [
+  breakObj = [
     { name: 'Focus', time: this.times.getValue().focus, bgColor: '#9f1239' },
     { name: 'Break', time: this.times.getValue().break, bgColor: '#075985' },
-    { name: 'Focus', time: this.times.getValue().focus, bgColor: '#9f1239' },
-    { name: 'Break', time: this.times.getValue().break, bgColor: '#075985' },
-    { name: 'Focus', time: this.times.getValue().focus, bgColor: '#9f1239' },
-    { name: 'Break', time: this.times.getValue().break, bgColor: '#075985' },
+  ];
+  longBreakObj = [
     { name: 'Focus', time: this.times.getValue().focus, bgColor: '#9f1239' },
     {
       name: 'Long Break',
@@ -75,6 +83,10 @@ export class TimerComponent {
       bgColor: '#065f46',
     },
   ];
+  interval = Array(this.numberOfIntervals - 1)
+    .fill(this.breakObj)
+    .reduce((acc, val) => acc.concat(val), [])
+    .concat(this.longBreakObj);
   currentInterval = 0;
 
   @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(

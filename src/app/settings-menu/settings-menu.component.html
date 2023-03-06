@@ -23,6 +23,16 @@
       </div>
       <button class="reset-button" (click)="resetTimes()">Reset Times</button>
     </div>
+    <div class="interval-settings">
+      <h3 class="setting-subtitle">Intervals</h3>
+      <div class="interval-options">
+        <div class="interval-form">
+          <label for="interval-count">Interval Count</label>
+          <input id="interval-count" type="number" [(ngModel)]="intervalCount"
+            (ngModelChange)="updateIntervalCount($event)" min="1" max="20" (keydown)="inputValidation($event)">
+        </div>
+      </div>
+    </div>
     <div class="sound-settings">
       <h3 class="setting-subtitle">Sound</h3>
       <div class="sound-options">
