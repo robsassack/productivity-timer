@@ -28,12 +28,9 @@ export class SettingsMenuComponent {
       this.longBreakTime = times.longBreak / 60;
     });
 
-    this.settingsService.sound$.subscribe((sound) => {
-      this.selectedSound = sound;
-    });
-
-    this.settingsService.buttonSound$.subscribe((sound) => {
-      this.buttonSound = sound;
+    this.settingsService.soundSettings$.subscribe((settings) => {
+      this.selectedSound = settings.sound;
+      this.buttonSound = settings.buttonSound;
     });
 
     this.settingsService.intervalCount$.subscribe((count) => {
@@ -93,7 +90,12 @@ export class SettingsMenuComponent {
       this.playSound.load();
       this.playSound.play();
     }
-    this.settingsService.updateSound(sound);
+
+    const newSettings = {
+      sound: sound!,
+      buttonSound: this.buttonSound,
+    }
+    this.settingsService.updateSoundSettings(newSettings);
   }
 
   updateButtonSound(event: Event) {
@@ -103,7 +105,12 @@ export class SettingsMenuComponent {
       this.playButtonSound.load();
       this.playButtonSound.play();
     }
-    this.settingsService.updateButtonSound(checked);
+
+    const newSettings = {
+      sound: this.selectedSound,
+      buttonSound: checked,
+    }
+    this.settingsService.updateSoundSettings(newSettings);
   }
 
   updateIntervalCount(event: Event) {

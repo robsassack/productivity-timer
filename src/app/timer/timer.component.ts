@@ -40,11 +40,10 @@ export class TimerComponent {
       this.time =
         this.interval[this.currentInterval % this.interval.length].time;
     });
-    this.settingsService.sound$.subscribe((sound) => {
-      this.alertSound.src = sounds.find((s) => s.name === sound)?.path!;
-    });
-    this.settingsService.buttonSound$.subscribe((playSound) => {
-      if (playSound) {
+    this.settingsService.soundSettings$.subscribe((settings) => {
+      this.alertSound.src = sounds.find((s) => s.name === settings.sound)
+        ?.path!;
+      if (settings.buttonSound) {
         this.buttonSound.src = 'assets/button.wav';
       } else {
         this.buttonSound.src = '';

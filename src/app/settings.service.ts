@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -10,18 +10,18 @@ export class SettingsService {
     break: 300,
     longBreak: 900
   };
-  private defaultSound = "Synth";
-  private defaultButtonSound = false;
+  private defaultSoundSettings = {
+    sound: "Synth",
+    buttonSound: false,
+    // volume: 0.5
+  }
   private defaultIntervalCount = 4;
 
   private timesSubject = new BehaviorSubject(this.defaultTimes);
   times$ = this.timesSubject.asObservable();
 
-  private soundSubject = new BehaviorSubject(this.defaultSound);
-  sound$ = this.soundSubject.asObservable();
-
-  private buttonSoundSubject = new BehaviorSubject(this.defaultButtonSound);
-  buttonSound$ = this.buttonSoundSubject.asObservable();
+  private soundSettingsSubject = new BehaviorSubject(this.defaultSoundSettings);
+  soundSettings$ = this.soundSettingsSubject.asObservable();
 
   private intervalCountSubject = new BehaviorSubject(this.defaultIntervalCount);
   intervalCount$ = this.intervalCountSubject.asObservable();
@@ -40,18 +40,11 @@ export class SettingsService {
       localStorage.setItem('times', JSON.stringify(this.defaultTimes));
     }
 
-    const sound = JSON.parse(localStorage.getItem('sound') || '{}');
-    if (sound && Object.keys(sound).length !== 0) {
-      this.soundSubject.next(sound);
+    const soundSettings = JSON.parse(localStorage.getItem('soundSettings') || '{}');
+    if (soundSettings && Object.keys(soundSettings).length !== 0) {
+      this.soundSettingsSubject.next(soundSettings);
     } else {
-      localStorage.setItem('sound', JSON.stringify(this.defaultSound));
-    }
-
-    const button = localStorage.getItem('buttonSound');
-    if (button !== null) {
-      this.buttonSoundSubject.next(JSON.parse(button));
-    } else {
-      localStorage.setItem('buttonSound', String(this.defaultButtonSound));
+      localStorage.setItem('soundSettings', JSON.stringify(this.defaultSoundSettings));
     }
 
     const intervalCount = localStorage.getItem('intervalCount');
@@ -67,14 +60,9 @@ export class SettingsService {
     this.timesSubject.next(newTime);
   }
 
-  updateSound(newSound: any) {
-    localStorage.setItem('sound', JSON.stringify(newSound));
-    this.soundSubject.next(newSound);
-  }
-
-  updateButtonSound(newButtonSound: any) {
-    localStorage.setItem('buttonSound', JSON.stringify(newButtonSound));
-    this.buttonSoundSubject.next(newButtonSound);
+  updateSoundSettings(newSoundSettings: any) {
+    localStorage.setItem('soundSettings', JSON.stringify(newSoundSettings));
+    this.soundSettingsSubject.next(newSoundSettings);
   }
 
   updateIntervalCount(newIntervalCount: number) {
