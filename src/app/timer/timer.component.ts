@@ -48,6 +48,8 @@ export class TimerComponent {
       } else {
         this.buttonSound.src = '';
       }
+      this.alertSound.volume = settings.volume;
+      this.buttonSound.volume = settings.volume;
     });
     this.settingsService.intervalCount$.subscribe((count) => {
       this.numberOfIntervals = count;

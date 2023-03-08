@@ -47,6 +47,14 @@
           <input type="checkbox" name="button-sound" id="button-sound" [(ngModel)]="buttonSound"
             (click)="updateButtonSound($event)">
         </div>
+        <div class="sound-form volume-form">
+          <label for="sound-volume">Sound Volume</label>
+          <div class="volume-container">
+            <span class="volume">{{(volume*100).toFixed(0)}}</span>
+            <input id="sound-volume" type="range" min="0" max="1" step="0.01" [(ngModel)]="volume"
+              (ngModelChange)="updateVolume($event)">
+          </div>
+          </div>
       </div>
     </div>
     <div class="github-container">

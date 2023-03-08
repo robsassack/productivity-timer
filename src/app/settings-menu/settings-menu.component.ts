@@ -17,6 +17,7 @@ export class SettingsMenuComponent {
   soundList = sounds.map((sound) => sound.name);
   selectedSound!: string;
   buttonSound!: boolean;
+  volume!: number;
   intervalCount!: number;
 
   constructor(private settingsService: SettingsService) {}
@@ -31,6 +32,7 @@ export class SettingsMenuComponent {
     this.settingsService.soundSettings$.subscribe((settings) => {
       this.selectedSound = settings.sound;
       this.buttonSound = settings.buttonSound;
+      this.volume = settings.volume;
     });
 
     this.settingsService.intervalCount$.subscribe((count) => {
@@ -94,6 +96,7 @@ export class SettingsMenuComponent {
     const newSettings = {
       sound: sound!,
       buttonSound: this.buttonSound,
+      volume: this.volume,
     }
     this.settingsService.updateSoundSettings(newSettings);
   }
@@ -109,7 +112,21 @@ export class SettingsMenuComponent {
     const newSettings = {
       sound: this.selectedSound,
       buttonSound: checked,
+      volume: this.volume,
     }
+    this.settingsService.updateSoundSettings(newSettings);
+  }
+
+  updateVolume(event: Event) {
+    const volume = Number(event);
+
+    const newSettings = {
+      sound: this.selectedSound,
+      buttonSound: this.buttonSound,
+      volume: volume,
+    }
+    this.playSound.volume = volume;
+    this.playButtonSound.volume = volume;
     this.settingsService.updateSoundSettings(newSettings);
   }
 

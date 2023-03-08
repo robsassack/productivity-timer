@@ -13,7 +13,7 @@
   flex-direction: column;
   gap: 10px;
   position: absolute;
-  top: 180px;
+  top: 190px;
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: 110px;
@@ -102,6 +102,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.sound-form {
+  min-height: 25px;
+}
+
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 #alert-sound {
