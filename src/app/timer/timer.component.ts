@@ -10,8 +10,8 @@ import { sounds } from '../sounds';
   styleUrls: ['./timer.component.css'],
 })
 export class TimerComponent {
-  alertSound = new Audio();
-  buttonSound = new Audio();
+  alertSound!: HTMLAudioElement;
+  buttonSound!: HTMLAudioElement;
   times = new BehaviorSubject({
     focus: 1500,
     break: 300,
@@ -41,12 +41,11 @@ export class TimerComponent {
         this.interval[this.currentInterval % this.interval.length].time;
     });
     this.settingsService.soundSettings$.subscribe((settings) => {
-      this.alertSound.src = sounds.find((s) => s.name === settings.sound)
-        ?.path!;
+      this.alertSound = new Audio(sounds.find((s) => s.name === settings.sound)?.path!);
       if (settings.buttonSound) {
-        this.buttonSound.src = 'assets/button.wav';
+        this.buttonSound = new Audio('assets/button.wav');
       } else {
-        this.buttonSound.src = '';
+        this.buttonSound = new Audio();
       }
       this.alertSound.volume = settings.volume;
       this.buttonSound.volume = settings.volume;

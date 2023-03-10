@@ -33,6 +33,9 @@ export class SettingsMenuComponent {
       this.selectedSound = settings.sound;
       this.buttonSound = settings.buttonSound;
       this.volume = settings.volume;
+
+      this.playSound.volume = this.volume;
+      this.playButtonSound.volume = this.volume;
     });
 
     this.settingsService.intervalCount$.subscribe((count) => {
