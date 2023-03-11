@@ -8,7 +8,7 @@ import { sounds } from '../sounds';
   styleUrls: ['./settings-menu.component.css'],
 })
 export class SettingsMenuComponent {
-  showSettingsMenu = false;
+  showSettingsMenu = true;
   playSound = new Audio();
   playButtonSound = new Audio();
   focusTime!: number;
@@ -17,7 +17,8 @@ export class SettingsMenuComponent {
   soundList = sounds.map((sound) => sound.name);
   selectedSound!: string;
   buttonSound!: boolean;
-  volume!: number;
+  alertVolume!: number;
+  buttonVolume!: number;
   intervalCount!: number;
 
   constructor(private settingsService: SettingsService) {}
@@ -32,10 +33,11 @@ export class SettingsMenuComponent {
     this.settingsService.soundSettings$.subscribe((settings) => {
       this.selectedSound = settings.sound;
       this.buttonSound = settings.buttonSound;
-      this.volume = settings.volume;
+      this.alertVolume = settings.alertVolume;
+      this.buttonVolume = settings.buttonVolume;
 
-      this.playSound.volume = this.volume;
-      this.playButtonSound.volume = this.volume;
+      this.playSound.volume = this.alertVolume;
+      this.playButtonSound.volume = this.buttonVolume;
     });
 
     this.settingsService.intervalCount$.subscribe((count) => {
@@ -99,7 +101,8 @@ export class SettingsMenuComponent {
     const newSettings = {
       sound: sound!,
       buttonSound: this.buttonSound,
-      volume: this.volume,
+      alertVolume: this.alertVolume,
+      buttonVolume: this.buttonVolume,
     }
     this.settingsService.updateSoundSettings(newSettings);
   }
@@ -115,20 +118,34 @@ export class SettingsMenuComponent {
     const newSettings = {
       sound: this.selectedSound,
       buttonSound: checked,
-      volume: this.volume,
+      alertVolume: this.alertVolume,
+      buttonVolume: this.buttonVolume,
     }
     this.settingsService.updateSoundSettings(newSettings);
   }
 
-  updateVolume(event: Event) {
+  updateAlertVolume(event: Event) {
     const volume = Number(event);
 
     const newSettings = {
       sound: this.selectedSound,
       buttonSound: this.buttonSound,
-      volume: volume,
+      alertVolume: volume,
+      buttonVolume: this.buttonVolume,
     }
     this.playSound.volume = volume;
+    this.settingsService.updateSoundSettings(newSettings);
+  }
+
+  updateButtonVolume(event: Event) {
+    const volume = Number(event);
+
+    const newSettings = {
+      sound: this.selectedSound,
+      buttonSound: this.buttonSound,
+      alertVolume: this.alertVolume,
+      buttonVolume: volume,
+    }
     this.playButtonSound.volume = volume;
     this.settingsService.updateSoundSettings(newSettings);
   }

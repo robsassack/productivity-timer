@@ -13,7 +13,8 @@ export class SettingsService {
   private defaultSoundSettings = {
     sound: "Synth",
     buttonSound: false,
-    volume: 0.5
+    alertVolume: 0.5,
+    buttonVolume: 0.5
   }
   private defaultIntervalCount = 4;
 
