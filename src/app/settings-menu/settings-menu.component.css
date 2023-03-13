@@ -50,6 +50,11 @@
   gap: 10px;
 }
 
+.time-settings, .sound-settings, .interval-settings {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
 .time-fields {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -137,7 +142,7 @@
 .github-container {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .github-link {
