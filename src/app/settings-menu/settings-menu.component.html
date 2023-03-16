@@ -1,5 +1,5 @@
 <div *ngIf="showSettingsMenu" class="settings-menu-container" (mousedown)="toggleSettingsMenu()">
-  <div class="settings-menu" (mousedown)="$event.stopPropagation()">
+  <div class="settings-menu" [ngClass]="{'menu-animation': showSettingsMenu}" (mousedown)="$event.stopPropagation()">
     <h2 class="title">Settings</h2>
     <div class="close" (click)="toggleSettingsMenu()"><i class="fa-solid fa-xmark"></i></div>
     <div class="time-settings">
