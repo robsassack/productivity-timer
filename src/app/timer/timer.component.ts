@@ -10,6 +10,50 @@ import { sounds } from '../sounds';
   styleUrls: ['./timer.component.css'],
 })
 export class TimerComponent {
+  // listener for pause/resume on spacebar
+  @HostListener('document:keydown.space', ['$event']) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    if (this.timer) {
+      if (this.pauseTimer) {
+        this.resume();
+      } else {
+        this.pause();
+      }
+    } else {
+      this.start();
+    }
+  }
+
+  // listener for next interval on right arrow
+  @HostListener('document:keydown.arrowright', ['$event']) onKeydownHandler2(
+    event: KeyboardEvent
+  ) {
+    this.next();
+  }
+
+  // listener for previous interval on left arrow
+  @HostListener('document:keydown.arrowleft', ['$event']) onKeydownHandler3(
+    event: KeyboardEvent
+  ) {
+    if (this.timer) {
+      this.reset();
+    } else {
+      if (this.currentInterval > 0) {
+        this.prev();
+      }
+    }
+  }
+
+  // listener for backspace to reset interval
+  @HostListener('document:keydown.backspace', ['$event']) onKeydownHandler4(
+    event: KeyboardEvent
+  ) {
+    if (this.currentInterval > 0) {
+      this.resetInterval();
+    }
+  }
+
   alertSound!: HTMLAudioElement;
   buttonSound!: HTMLAudioElement;
   times = new BehaviorSubject({
