@@ -14,6 +14,9 @@ export class TimerComponent {
   @HostListener('document:keydown.space', ['$event']) onKeydownHandler(
     event: KeyboardEvent
   ) {
+    if (document.getElementsByClassName('settings-menu').length > 0) {
+      return;
+    }
     if (this.timer) {
       if (this.pauseTimer) {
         this.resume();
@@ -29,6 +32,9 @@ export class TimerComponent {
   @HostListener('document:keydown.arrowright', ['$event']) onKeydownHandler2(
     event: KeyboardEvent
   ) {
+    if (document.getElementsByClassName('settings-menu').length > 0) {
+      return;
+    }
     this.next();
   }
 
@@ -36,6 +42,9 @@ export class TimerComponent {
   @HostListener('document:keydown.arrowleft', ['$event']) onKeydownHandler3(
     event: KeyboardEvent
   ) {
+    if (document.getElementsByClassName('settings-menu').length > 0) {
+      return;
+    }
     if (this.timer) {
       this.reset();
     } else {
@@ -49,6 +58,9 @@ export class TimerComponent {
   @HostListener('document:keydown.backspace', ['$event']) onKeydownHandler4(
     event: KeyboardEvent
   ) {
+    if (document.getElementsByClassName('settings-menu').length > 0) {
+      return;
+    }
     if (this.currentInterval > 0) {
       this.resetInterval();
     }
