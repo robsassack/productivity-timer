@@ -103,7 +103,7 @@ export class SettingsMenuComponent {
       buttonSound: this.buttonSound,
       alertVolume: this.alertVolume,
       buttonVolume: this.buttonVolume,
-    }
+    };
     this.settingsService.updateSoundSettings(newSettings);
   }
 
@@ -120,7 +120,7 @@ export class SettingsMenuComponent {
       buttonSound: checked,
       alertVolume: this.alertVolume,
       buttonVolume: this.buttonVolume,
-    }
+    };
     this.settingsService.updateSoundSettings(newSettings);
   }
 
@@ -132,7 +132,7 @@ export class SettingsMenuComponent {
       buttonSound: this.buttonSound,
       alertVolume: volume,
       buttonVolume: this.buttonVolume,
-    }
+    };
     this.playSound.volume = volume;
     this.settingsService.updateSoundSettings(newSettings);
   }
@@ -145,7 +145,7 @@ export class SettingsMenuComponent {
       buttonSound: this.buttonSound,
       alertVolume: this.alertVolume,
       buttonVolume: volume,
-    }
+    };
     this.playButtonSound.volume = volume;
     this.settingsService.updateSoundSettings(newSettings);
   }
